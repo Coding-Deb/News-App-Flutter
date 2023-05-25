@@ -18,6 +18,8 @@ class _SearchScreenState extends State<SearchScreen> {
   TextEditingController textController = TextEditingController();
   String displayText = "";
 
+  // List articlesdata = [];
+
   List articles = [];
   Future<void> getdata() async {
     var response = await http.get(Uri.parse(
@@ -26,6 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
     var jsondata = jsonDecode(response.body);
     setState(() {
       articles = jsondata['articles'];
+      // articlesdata = jsondata['articles']['title'];
     });
   }
 
@@ -59,6 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 Expanded(
                   child: Container(
                     child: TextField(
+                      textInputAction: TextInputAction.search,
                       onChanged: (text) {
                         text = textController.text;
                         getdata();
@@ -95,7 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   onRefresh: () {
                     return getdata();
                   },
-                  child: displayText != '' ? ListView.builder(
+                  child: displayText != '' ? (ListView.builder(
                     physics: const AlwaysScrollableScrollPhysics(),
                     itemCount: articles.length,
                     itemBuilder: (context, index) {
@@ -205,7 +209,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                       );
                     },
-                  ): Center(
+                  )): Center(
                     child: Text('No Result',style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,

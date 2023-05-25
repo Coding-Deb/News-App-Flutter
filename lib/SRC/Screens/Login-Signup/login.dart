@@ -18,7 +18,7 @@ class _LoginState extends State<Login> {
     size = MediaQuery.of(context).size;
     height = size.height;
     width = size.width;
-    TextEditingController textController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
     String displayText = "";
     return Scaffold(
       body: Center(
@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
                 child: Lottie.network(
                     'https://assets4.lottiefiles.com/packages/lf20_dn6rwtwl.json')),
             TextField(
-              controller: textController,
+              controller: emailController,
               cursorColor: Colors.black,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
@@ -55,7 +55,7 @@ class _LoginState extends State<Login> {
                     },
                   ));
                   setState(() {
-                    displayText = textController.text;
+                    displayText = emailController.text;
                   });
                 },
                 child: Text(
